@@ -12,9 +12,15 @@ class Product(models.Model):
     class Meta:
         db_table = 'inventory_products'
 
+    def __str__(self):
+        return f'{self.name} ({self.sku})'
+
 
 class Shipment(models.Model):
     name = models.CharField(max_length=255, null=False)
 
     class Meta:
         db_table = 'inventory_shipments'
+
+    def __str__(self):
+        return self.name
