@@ -15,10 +15,8 @@
       <div class="col-sm-2">
       {% block sidebar %}
         <ul class="sidebar-nav">
-          <li><a href="">Create Product</a></li>
-          <li><a href="">Edit Existing Product</a></li>
-          <li><a href="">Delete Product</a></li>
-          <li><a href="">View All Products</a></li>
+          <li><a href="{% url 'create_product' %}">Create Product</a></li>
+          <li><a href="{% url 'view_products' %}">View All Products</a></li>
           <li><a href="">Create Shipment</a></li>
         </ul>
      {% endblock %}
