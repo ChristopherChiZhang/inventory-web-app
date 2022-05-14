@@ -1,35 +1,43 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Create a Shipment</h1>
-{% if formset %}
-<form method="post">
-    {{ formset.management_form }}
-    {% csrf_token %}
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>SKU</th>
-            <th>Quantity Available</th>
-            <th>Quantity To Ship</th>
-        </tr>
-        </thead>
-        {% for item in formset %}
-        <tr>
-            <td>{{ item.name.value }}</td>
-            <td>{{ item.sku.value }}</td>
-            <td>{{ item.quantity_available.value }}</td>
-            <td>{{ item.quantity_to_ship }}</td>
-            {{ item.product_id }}
-        </tr>
-        {% endfor %}
-    </table>
-    <div class="col-md-1 col-md-offset-11">
-        <button type="submit" class="btn btn-primary" value="">Create Shipment</button>
-    </div>
-</form>
-{% else %}
-<p>You have no products to create shipments for.</p>
-{% endif %}
+<div class="container">
+    <h1>Create a Shipment</h1>
+    <form class="layout-float-right" method="get"
+          action="{% url 'view_past_shipments' %}" target="_blank">
+        <button type="submit" class="btn btn-primary" style="float: right;">View Shipment History</button>
+    </form>
+    {% if formset %}
+    <form method="post">
+        {{ formset.management_form }}
+        {% csrf_token %}
+        <div class="input-group">
+            <label class="px-3">Shipment name:</label>
+            <input name="shipment_name" type="text" size="40" required="true">
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>SKU</th>
+                <th>Quantity Available</th>
+                <th>Quantity To Ship</th>
+            </tr>
+            </thead>
+            {% for item in formset %}
+            <tr>
+                <td>{{ item.name.value }}</td>
+                <td>{{ item.sku.value }}</td>
+                <td>{{ item.quantity_available.value }}</td>
+                <td>{{ item.quantity_to_ship }}</td>
+                {{ item.product_id }}
+            </tr>
+            {% endfor %}
+        </table>
+        <button type="submit" class="btn btn-primary" style="float: right;">Create Shipment</button>
+    </form>
+    {% else %}
+    <p>You have no products to create shipments for.</p>
+    {% endif %}
+</div>
 {% endblock %}

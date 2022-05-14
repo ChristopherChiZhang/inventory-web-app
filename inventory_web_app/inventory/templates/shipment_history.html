@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Shipment History</h1>
+{% if page_obj %}
+<table class="table table-condensed table-striped">
+    <thead>
+    <tr>
+        <th>Shipment Name</th>
+        <th>Date Shipped</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for shipment in page_obj %}
+    <tr data-toggle="collapse" data-target="#{{ shipment.id }}" class="accordion-toggle">
+        <td>{{ shipment.name }}</td>
+        <td>{{ shipment.created_at }}</td>
+    </tr>
+    <tr>
+        <td colspan="12" class="hiddenRow">
+            <div class="accordian-body collapse" id="{{ shipment.id }}">
+                <table class="table table-striped">
+                    <thead>
+                    <tr class="info">
+                        <th>Product Name</th>
+                        <th>Quantity Shipped</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for shipment_item in shipment.shipment_items.all %}
+                    <tr>
+                        <td>{{ shipment_item.product_name }}</td>
+                        <td>{{ shipment_item.quantity_shipped }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No shipments have been made.</p>
+{% endif %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+        <button class="btn btn-info">
+            <a href="?page=1">&laquo; first</a>
+        </button>
+        <button class="btn btn-info">
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        </button>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+        <button class="btn btn-info">
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+        </button>
+        <button class="btn btn-info">
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        </button>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

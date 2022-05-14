@@ -7,7 +7,7 @@ from django.views import View
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 
 from inventory.forms import ProductFormSet, ProductForm
-from inventory.models import Product
+from inventory.models import Product, Shipment, ShipmentItem
 
 
 def landing_page(request):
@@ -100,8 +100,16 @@ class CreateShipmentView(View):
             if quantity_to_ship > 0:
                 products_to_be_shipped.append((product_id, quantity_to_ship))
 
+        shipment = Shipment.create_shipment(post_data['shipment_name'])
         for product_id, quantity_to_ship in products_to_be_shipped:
             product = Product.objects.get(id=product_id)
             product.update_quantity(quantity_to_ship)
+            ShipmentItem.create_shipment_item(shipment, product.name, quantity_to_ship)
 
         return True
+
+
+class ShipmentHistoryView(ListView):
+    model = Shipment
+    template_name = 'shipment_history.html'
+    paginate_by = 10
