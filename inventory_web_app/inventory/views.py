@@ -42,6 +42,7 @@ class ProductView(ListView):
     model = Product
     paginate_by = 10
     template_name = 'view_products.html'
+    ordering = ['name']
 
 
 class CreateShipmentView(View):

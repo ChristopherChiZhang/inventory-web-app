@@ -20,14 +20,16 @@
         <td>{{product.description}}</td>
         <td>{{product.quantity}}</td>
         <td>
-            <button type="button" class="btn btn-info">
-                <a href="{% url 'edit_product' product.id %}">Edit</a>
-            </button>
+            <form method="get"
+                  action="{% url 'edit_product' product.id %}">
+                <input type="submit" class="btn btn-info" value="Edit">
+            </form>
         </td>
         <td>
-            <button type="button" class="btn btn-danger">
-                <a href="{% url 'delete_product' product.id %}">Delete</a>
-            </button>
+            <form method="get"
+                  action="{% url 'delete_product' product.id %}">
+                <input type="submit" class="btn btn-danger" value="Delete">
+            </form>
         </td>
     </tr>
     {% endfor %}

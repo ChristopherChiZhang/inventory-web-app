@@ -1,5 +1,7 @@
 from django.db import models
 
+from inventory.utils import Utils
+
 
 class Timestamped(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=False)
@@ -15,7 +17,7 @@ class Product(Timestamped):
     name = models.CharField(max_length=255, null=False)
     sku = models.CharField(max_length=12, unique=True)
     description = models.CharField(max_length=255, null=False)
-    quantity = models.IntegerField(default=0)
+    quantity = models.IntegerField(default=0, validators=[Utils.non_negative])
 
     objects = models.Manager()
 
