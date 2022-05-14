@@ -1,7 +1,5 @@
 from django.db import models
 
-from django.db import models
-
 
 class Timestamped(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=False)
@@ -27,6 +25,14 @@ class Product(Timestamped):
 
     def __str__(self):
         return f'{self.name} ({self.sku})'
+
+    def update_quantity(self, quantity_to_remove):
+        if self.quantity - quantity_to_remove >= 0:
+            self.quantity -= quantity_to_remove
+            self.save()
+            return True
+
+        return False
 
 
 class Shipment(Timestamped):

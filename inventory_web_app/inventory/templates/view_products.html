@@ -2,6 +2,7 @@
 
 {% block content %}
 <h1>Inventory of Products</h1>
+{% if page_obj %}
 <table class="table table-striped">
     <thead>
     <tr>
@@ -12,7 +13,7 @@
     </tr>
     </thead>
     <tbody>
-    {% for product in products %}
+    {% for product in page_obj %}
     <tr>
         <td>{{product.sku}}</td>
         <td>{{product.name}}</td>
@@ -32,4 +33,37 @@
     {% endfor %}
     </tbody>
 </table>
+{% else %}
+<p>No products to display. </p>
+{% endif %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+        <button class="btn btn-info">
+            <a href="?page=1">&laquo; first</a>
+        </button>
+        <button class="btn btn-info">
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        </button>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+        <button class="btn btn-info">
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+        </button>
+        <button class="btn btn-info">
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        </button>
+        {% endif %}
+    </span>
+</div>
 {% endblock %}
+
+<!--<form class="layout-right layout-padding-bottom" method="get"-->
+<!--                  action="{% url 'bica_past_version_code_correction' provider_number %}" target="_blank">-->
+<!--                <button type="submit" class="btn btn-primary">View Entered History</button>-->
+<!--            </form>-->

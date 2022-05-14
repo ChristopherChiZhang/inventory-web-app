@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Create a Shipment</h1>
+{% if formset %}
+<form method="post">
+    {{ formset.management_form }}
+    {% csrf_token %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>SKU</th>
+            <th>Quantity Available</th>
+            <th>Quantity To Ship</th>
+        </tr>
+        </thead>
+        {% for item in formset %}
+        <tr>
+            <td>{{ item.name.value }}</td>
+            <td>{{ item.sku.value }}</td>
+            <td>{{ item.quantity_available.value }}</td>
+            <td>{{ item.quantity_to_ship }}</td>
+            {{ item.product_id }}
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="col-md-1 col-md-offset-11">
+        <button type="submit" class="btn btn-primary" value="">Create Shipment</button>
+    </div>
+</form>
+{% else %}
+<p>You have no products to create shipments for.</p>
+{% endif %}
+{% endblock %}

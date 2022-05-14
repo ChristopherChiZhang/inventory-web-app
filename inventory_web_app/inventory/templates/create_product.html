@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-<p>create a new product</p>
+<h1>Create a New Product</h1>
 <form method="post">{% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Save">
