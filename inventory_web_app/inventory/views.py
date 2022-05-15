@@ -114,3 +114,4 @@ class ShipmentHistoryView(ListView):
     model = Shipment
     template_name = 'shipment_history.html'
     paginate_by = 10
+    ordering = ['-created_at']

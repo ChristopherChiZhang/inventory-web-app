@@ -127,4 +127,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 X_FRAME_OPTIONS = '*'
 
-ALLOWED_HOSTS = ['463d4227-2fff-4c22-b7f3-16c18f47e192.id.repl.co', 'inventory-web-app.christopherzha4.repl.co']
+ALLOWED_HOSTS = ['463d4227-2fff-4c22-b7f3-16c18f47e192.id.repl.co', 'inventory-web-app.christopherzha4.repl.co', 'inventory-web-app--christopherzha4.repl.co']
